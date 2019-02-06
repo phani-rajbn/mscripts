@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="../Lib/angular.min.js"></script>
+    <script src="../Scripts/empData.js"></script>
+</head>
+<body>
+    <h1>Angular Forms</h1>
+    <p>AngularJS uses the features of HTML5 to provide dynamic features that could be used in forms. This include fetures like submitting, validating and redirecting features. 
+    AngularjS forms are made with a set of  events that could be handled in the code to make it more interactive before the data is submitted to the server or any database resource. 
+    Validation of the controls are done using any of the followings  states before the form is submitted to the Application    
+    </p>
+    <ul>
+        <li>$pristine used to check whether the user is yet to interact with the control</li>
+        <li>$dirty used to check whether the user has interacted with the controls</li>
+        <li>$valid checks the validity of all the controls in the form and evaluates whether the form is valid or not</li>
+        <li>$invalid is opposite and will be true even atleast one containing form element is invalid</li>
+    </ul>
+    <div ng-app="mainApp" ng-controller="empController">
+        <h1>User registration form</h1>
+        <form name="regForm" ng-submit="submit()">
+            <div ng-show="regForm.$pristine">Inputs have not yet been provided</div>
+            <div ng-show="regForm.$dirty">Inputs have started and is yet to submit</div>
+            <p>
+                Enter the Name:<input required ng-model="emp.Name" name="empName"/>
+                <span style="color:red" ng-show="regForm.empName.$dirty && regForm.empName.$invalid">
+                    <span ng-show="regForm.empName.$error.required">Name is required</span>
+                </span>
+            </p>
+            <p>
+                Enter the Address: <input name="empAddress" ng-model="emp.Address" required/>
+                <span style="color:red" ng-show="regForm.empAddress.$dirty && regForm.empAddress.$invalid">
+                    <span ng-show="regForm.empAddress.$error.required">Address is required</span>
+                </span>
+            </p>
+            <button type="reset">Reset to blank</button>
+            <button type="button" ng-click="reset()">Reset to default</button>
+            <button type="submit" ng-disabled="(regForm.empName.$dirty && regForm.empName.$invalid) || regForm.empName.$pristine || regForm.empAddress.$pristine || (regForm.empAddress.$dirty && regForm.empAddress.$invalid)">Submit</button>
+        </form>
+    </div>
+</body>
+</html>
